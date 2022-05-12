@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import Constant from '../config/Constant';
+import Constant from '../config/Constant'
 
 export class AdminService {
     addbook = (e, data) => {
@@ -29,8 +29,11 @@ export class AdminService {
     searchAndFilter = (pageNo, searchText, filterName) => {
         return Axios({
             method: 'get',
-            url: `${Constant.apiUrl}sort/${pageNo - 1}/${searchText}/${filterName}`
+            url: `${Constant.apiUrl}sort/${pageNo - 1}/${searchText}/${filterName}`,
+            
+            
         })
+    
     }
 
     addToCart = (data) => {

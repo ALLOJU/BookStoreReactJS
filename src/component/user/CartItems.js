@@ -16,7 +16,7 @@ class CartItems extends Component {
             disableDecrementButton:false,
             disableIncrementButton:true,
             totalPrice:this.props.books.bookPrice,
-            imageURl:this.props.books.imageURl
+            imageURL:this.props.books.imageURL
         }
     }
 
@@ -29,6 +29,7 @@ class CartItems extends Component {
     }
 
     remove = (id) => {
+        console.log('remove')
         new AdminService().remove(id).then(response => {
             this.props.handleCart()
         }).catch((error) => {
@@ -105,7 +106,7 @@ class CartItems extends Component {
         return (
             <div className="mycart">
                 <div>
-                    <img src={require('../../assets/Bob.jpg')} alt="Not found" className="mycart-img"/>
+                    <img src={this.props.books.imageURL} alt="Not found" className="mycart-img"/>
                 </div>
                 <div className="books-container">
                     <Typography component="h2" id="bookname1">{this.props.books.bookName}</Typography>

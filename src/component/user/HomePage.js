@@ -108,17 +108,32 @@ class HomePage extends Component {
         }
     }
 
+    // searchAndFilter = () => {
+    //     /*new AdminService().searchAndFilter(this.state.pageNo, this.state.searchText, this.state.selectBoxValue).then(response => {
+    //         this.setState({
+    //             data: response.data.books,
+    //             dataLength: response.data.size
+    //         })
+    //         this.displaySearchBook(response.data.books, "", this.state.searchText, response.data.size)
+    //     }).catch((error) => {
+    //         this.displaySearchBook([], "error", "", 0)
+    //     })*/
+    //     const filteredData = this.state.data.filter(book => book.bookName.toLowerCase().includes(this.state.searchText.toLowerCase()));
+    //     this.setState({
+    //         data: filteredData,
+    //         dataLength: filteredData.length
+    //     })
+      
+    //     this.displaySearchBook(filteredData, "", this.state.searchText, filteredData.length)
+    // }
     searchAndFilter = () => {
-        /*new AdminService().searchAndFilter(this.state.pageNo, this.state.searchText, this.state.selectBoxValue).then(response => {
-            this.setState({
-                data: response.data.books,
-                dataLength: response.data.size
-            })
-            this.displaySearchBook(response.data.books, "", this.state.searchText, response.data.size)
-        }).catch((error) => {
-            this.displaySearchBook([], "error", "", 0)
-        })*/
-        const filteredData = this.state.data.filter(book => book.bookName.toLowerCase().includes(this.state.searchText.toLowerCase()));
+        let filteredData = this.state.data;
+        if (this.state.searchText !== 'none') {
+            filteredData = this.state.data.filter(book => book.bookName.toLowerCase().includes(this.state.searchText.toLowerCase()));
+        }
+        if (this.state.selectBoxValue.trim().length !== 0) {
+            filteredData.sort((book1, book2) => this.state.selectBoxValue === 'LOW_TO_HIGH' ? book1.bookPrice - book2.bookPrice : book2.bookPrice - book1.bookPrice);
+        }
         this.setState({
             data: filteredData,
             dataLength: filteredData.length
@@ -130,6 +145,9 @@ class HomePage extends Component {
         if (filteredData.length === 0 && errormessage) {
             this.getBooks()
             this.getCount()
+        }
+        if (this.state.selectBoxValue.trim().length !== 0) {
+            filteredData.sort((book1, book2) => this.state.selectBoxValue === 'LOW_TO_HIGH' ? book1.bookPrice - book2.bookPrice : book2.bookPrice - book1.bookPrice);
         }
         if (filteredData.length === 0 && !errormessage) {
             this.setState({

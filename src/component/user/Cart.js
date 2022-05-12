@@ -374,25 +374,32 @@ class Cart extends Component {
                                     <div className="textbox secondtext">
                                         <ThemeProvider theme={theme}>
                                             <TextFields
-                                                InputLabelProps={{shrink: true}}
-                                                value={this.state.userData.fullName}
-                                                required={true}
-                                                label="Name"
-                                                id="name"
-                                                name="customerName"
-                                                variant="outlined"
-                                                className="textfields" disabled
+                                               InputLabelProps={{shrink: true}}
+                                                 value={this.state.fullName}
+                                                 required={true}
+                                                 label="Name"
+                                                 id="name"
+                                                 error={this.state.customernamerror}
+                                                 name="customername"
+                                                 onChange={this.changeState}
+                                                 onBlur={(e) => this.customernameValidation(e, "customernameError")}
+                                                 helperText={this.state.customername}
+                                                 variant="outlined"
+                                                 className="textfields" disabled={this.state.text}
                                             />
                                             <TextFields
-                                                InputLabelProps={{shrink: true}}
-                                                value={this.state.userData.mobileNumber}
-                                                required={true}
-                                                label="Phone Number"
-                                                id="contact"
-                                                name="mobileNo"
-                                                Text={this.state.contact}
-                                                variant="outlined"
-                                                className="textfields" disabled
+                                                 InputLabelProps={{shrink: true}}
+                                                 value={this.state.phonenumber}
+                                                 required={true}
+                                                 label="Phonenumber"
+                                                 id="phoneNumber"
+                                                 error={this.state.phonenumberError}
+                                                 name="phonenumber"
+                                                 onChange={this.changeState}
+                                                 onBlur={(e) => this.phonenumberValidation(e, "phonenumberError")}
+                                                 helperText={this.state.phonenumber}
+                                                 variant="outlined"
+                                                 className="textfields" disabled={this.state.text}
                                             />
                                         </ThemeProvider>
                                     </div>
