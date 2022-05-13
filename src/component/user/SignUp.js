@@ -68,7 +68,7 @@ class SignUp extends Component {
     }
 
     passwordValidation = (event, error) => {
-        let passwordPattern = "^((?=[^@|#|&|%|$]*[@|&|#|%|$][^@|#|&|%|$]*$)*(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9#@$?]{8,})$"
+        let passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]*[\\@\\#\\^][a-zA-Z0-9]*$"
         if (!event.target.value.match(passwordPattern)) {
             this.setState({
                 [event.target.id]: "Enter valid password",
@@ -192,7 +192,7 @@ class SignUp extends Component {
                         <img src={Login} alt="Not found" className="login-img"/>
                         <div style={{marginLeft: "76px", marginTop: "3%"}}>
                             <h3 style={{fontWeight: "bold"}}>
-                                THE CB'S BOOK STORE
+                                 BOOK STORE
                             </h3>
                         </div>
                     </Card>

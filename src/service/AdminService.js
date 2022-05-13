@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import Constant from '../config/Constant'
-
-export class AdminService {
+import React from 'react';
+export class AdminService extends React.Component{
     addbook = (e, data) => {
         e.preventDefault();
         return Axios({
@@ -66,13 +66,25 @@ export class AdminService {
         })
     }
 
-    remove = (id) => {
-        return Axios({
+    // remove = (id) => {
+    //     new AdminService().remove(id); //.then(response => {
+    //         this.props.handleCart()
+    //     //}).catch((error) => {
+    //         // console.log(error)
+    //    // })
+    // }
+remove = (id) => {
+        const cartItems = this.myCart();
+        cartItems.splice(cartItems.findIndex(item => item.id === id), 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        // return Promise(true);
+        /*return Axios({
             method: 'delete',
             headers: {token: localStorage.getItem('Authorization')},
             url: `${Constant.apiUrl}cart/${id}`
-        })
+        })*/
     }
+   
 
     uploadFile = (formData) => {
         return Axios({
@@ -147,6 +159,7 @@ export class AdminService {
     }
 
     placedOrder = (totalprice,discountPrice) => {
+       // return JSON.parse(localStorage.getItem('totalprice') ? localStorage.getItem('totalprice') : '[]');
         return Axios({
             headers: {token: localStorage.getItem('Authorization')},
             method: 'post',
@@ -164,6 +177,7 @@ export class AdminService {
     }
 
     getCoupon = (totalPrice) => {
+        
         return Axios({
             headers: {token: localStorage.getItem('Authorization')},
             method: 'get',

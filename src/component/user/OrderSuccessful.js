@@ -16,10 +16,10 @@ class OrderSuccessful extends Component {
 
     render() {
         let user = localStorage.getItem('Authorization');
-        if(user == "null" || user == "undefined" || !user){
-            return <SignUp/>
-        }
-        else
+        // if(user == "null" || user == "undefined" || !user){
+        //     return <SignUp/>
+        // }
+       // else
         return (
             <div>
                 <CbHeader/>

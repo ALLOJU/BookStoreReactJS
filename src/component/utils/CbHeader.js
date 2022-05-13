@@ -148,6 +148,13 @@ export class CbHeader extends Component {
                             </IconButton>
                         </div>
                         }
+
+                        {this.state.searchVisibility &&
+                        <div className={this.state.visibilityValueOfLogin === "visible" ?
+                            "loginsignup" : "loginsignup1"}>
+                            <PersonOutlineSharpIcon className="userIcon" onClick={this.handleLoginBoxVisibility}/>
+                        </div>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Dialog className="maindialoguebox" aria-labelledby="customized-dialog-title"
@@ -157,7 +164,7 @@ export class CbHeader extends Component {
                     </DialogContent>
                 </Dialog>
 
-                 {!this.state.userLoggedIn ?
+                {!this.state.userLoggedIn ?
                     <Card className="loginsignupcard" style={{visibility: this.state.visibilityValueOfLogin}} variant="outlined">
                         <CardContent><Typography id="mainName" style={{fontWeight: "bold"}}>Welcome</Typography>
                             <Typography id="subName" color="textSecondary" gutterBottom>To
@@ -165,8 +172,8 @@ export class CbHeader extends Component {
                             <Button className="loginorsignupbutton"
                                     onClick={() => this.handleDialogueBoxVisibility(this.state.userLoggedIn)}>{this.state.logorsign}</Button>
                         </CardContent>
-                    </Card> 
-                    : 
+                    </Card>
+                    :
                     <Card  className="loginsignupcard1" style={{visibility: this.state.visibilityValueOfLogin}} variant="outlined">
                         <CardContent><Typography id="userName-logincart">Hello, {this.props.name}</Typography>
                             <Typography id="order-title" color="textSecondary" ><CardGiftcardIcon id="order-icon"/>
