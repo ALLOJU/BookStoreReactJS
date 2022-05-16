@@ -204,7 +204,7 @@ class HomePage extends Component {
                     <div className="maincarddiv">
                         <Container className="maincontain" id="maincontainer">
                             <div id="filter">
-                                <h2>Books <p className="maincontain-p"> ({this.state.dataLength} items)</p></h2>
+                                <h2>Books <p className="maincontain-p"> ({data.length} items)</p></h2>
                                 <ThemeProvider theme={theme}>
                                     <Select
                                         native

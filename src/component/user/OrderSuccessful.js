@@ -12,6 +12,12 @@ class OrderSuccessful extends Component {
 
     handleChange = () => {
         this.props.history.push("/")
+       
+            this.setState({
+                cartItems: []
+            })
+            localStorage.setItem("cartItems",JSON.stringify([]));
+        
     }
 
     render() {

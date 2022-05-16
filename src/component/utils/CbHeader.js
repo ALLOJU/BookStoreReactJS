@@ -29,6 +29,7 @@ export class CbHeader extends Component {
             tempData: [],
             searchVisibility: false,
             counter: 0,
+            counter1:0,
             visibilityValueOfLogin: 'hidden',
             visibilityOfDialogBox: false,
             visibilityOfCloseIcon: 'hidden',
@@ -60,7 +61,18 @@ export class CbHeader extends Component {
             })
         }
     }
-
+    handleBadgeCount1(value, updateFactor) {
+        if (updateFactor === "updateWishlistButton")
+            this.setState({
+                counter1: value
+            })
+        if (updateFactor === "addWishlistButton") {
+            this.setState({
+                counter1: this.state.counter1 + 1
+            })
+        }
+    }
+   
     handleLoginBoxVisibility = (event) => {
 
         if (`${this.state.visibilityValueOfLogin}` === "hidden") {
@@ -144,6 +156,15 @@ export class CbHeader extends Component {
                             <IconButton aria-label="show 4 new mails" id="shopping-icon" >
                                 <Badge className="badge-carticon" badgeContent={this.state.counter} style={{color:"white"}}>
                                     <Link style={{color: 'white'}} to={`/cart`}><ShoppingCartOutlinedIcon id="cart-icon"/></Link>
+                                </Badge>
+                            </IconButton>
+                        </div>
+                        }
+                        {this.state.searchVisibility &&
+                        <div className="shoppingIcon">
+                            <IconButton aria-label="show 4 new mails" id="shopping-icon" >
+                                <Badge className="badge-carticon" badgeContent={this.state.counter1} style={{color:"white"}}>
+                                    <Link style={{color: 'white'}} to={`/wishlist`}><FavoriteBorderIcon id="cart-icon"/></Link>
                                 </Badge>
                             </IconButton>
                         </div>

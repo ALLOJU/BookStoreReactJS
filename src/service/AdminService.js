@@ -47,9 +47,29 @@ export class AdminService extends React.Component{
             data: data,
         })*/
     }
+    
+    addToWishlist = (data) => {
+        const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems') || '[]');
+        wishlistItems.push(data);
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+        /*return Axios({
+            method: 'post',
+            headers: {token: localStorage.getItem('Authorization')},
+            url: `${Constant.apiUrl}cart`,
+            data: data,
+        })*/
+    }
 
     myCart = () => {
         return JSON.parse(localStorage.getItem('cartItems') ? localStorage.getItem('cartItems') : '[]');
+        /*return Axios({
+            method: 'get',
+            headers: {token: localStorage.getItem('Authorization')},
+            url: `${Constant.apiUrl}cart`
+        })*/
+    }
+    myWishlist = () => {
+        return JSON.parse(localStorage.getItem('wishlistItems') ? localStorage.getItem('wishlistItems') : '[]');
         /*return Axios({
             method: 'get',
             headers: {token: localStorage.getItem('Authorization')},
@@ -95,11 +115,13 @@ remove = (id) => {
     }
 
     register = (registerData) => {
-        return Axios({
-            method: 'post',
-            url: `${Constant.apiUrl}user/register`,
-            data: registerData
-        })
+
+      
+        // return Axios({
+        //     method: 'post',
+        //     url: `${Constant.apiUrl}user/register`,
+        //     data: registerData
+        // })
     }
 
     login = (loginData) => {
@@ -176,15 +198,15 @@ remove = (id) => {
         })
     }
 
-    getCoupon = (totalPrice) => {
+    // getCoupon = (totalPrice) => {
         
-        return Axios({
-            headers: {token: localStorage.getItem('Authorization')},
-            method: 'get',
-            params: {totalPrice: totalPrice},
-            url: `${Constant.apiUrl}coupon`,
-        })
-    }
+    //     return Axios({
+    //         headers: {token: localStorage.getItem('Authorization')},
+    //         method: 'get',
+    //         params: {totalPrice: totalPrice},
+    //         url: `${Constant.apiUrl}coupon`,
+    //     })
+    // }
 
     addDiscountPrice = (discountCoupon, totalPrice) => {
         return Axios({

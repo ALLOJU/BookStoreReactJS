@@ -40,7 +40,7 @@ class SignIn extends Component {
     }
 
     passwordValidation=(event,error)=>{
-        let passwordPattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]*[\\@\\#\\^][a-zA-Z0-9]*$"
+        let passwordPattern="^((?=[^@|#|&|%|$]*[@|&|#|%|$][^@|#|&|%|$]*$)*(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9#@$?]{8,})$"
         if(!event.target.value.match(passwordPattern)){
             this.setState({
                 [event.target.id]: "Enter valid password",
@@ -59,7 +59,9 @@ class SignIn extends Component {
 
     changeState = (event) => {
         this.setState({
-            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value
+            
+            ,
         })
     }
 
@@ -158,9 +160,9 @@ class SignIn extends Component {
                         </div>
                     </ThemeProvider>
                 </div>
-                {/* {this.state.snackFlag &&
+                {this.state.snackFlag &&
                 <CustomSnackBar message={this.state.snackMessage} severity={this.state.severity} />
-                } */}
+                }
             </div>
         );
     }

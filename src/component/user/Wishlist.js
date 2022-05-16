@@ -9,12 +9,13 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import '../../css/Cart.css'
+import '../../css/Wishlist.css'
 import {withRouter} from 'react-router';
 import CbHeader from "../utils/CbHeader";
 import Card from "@material-ui/core/Card";
 import {AdminService} from "../../service/AdminService";
-import CartItems from "./CartItems";
+//import CartItems from "./CartItems";
+import Wishlistitems from "./Wishlistitems";
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import Divider from "@material-ui/core/Divider";
 import CbFooter from "../utils/CbFooter";
@@ -24,7 +25,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Coupon from "./Coupon";
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 
-class Cart extends Component {
+class Wishlist extends Component {
 
     constructor(props) {
         super(props);
@@ -224,7 +225,7 @@ class Cart extends Component {
     handleCart = () => {
        // new AdminService().myCart().then(response => {
             this.setState({
-                checkoutData: new AdminService().myCart()
+                checkoutData: new AdminService().myWishlist()
             })
         /*}).catch((error) => {
             this.setState({
@@ -324,7 +325,7 @@ class Cart extends Component {
                 },
             },
         });
-        let cartData = new AdminService().myCart(); //this.state.checkoutData
+        let cartData = new AdminService().myWishlist(); //this.state.checkoutData
 
         // let user = localStorage.getItem('Authorization');
         //if (!user) {
@@ -340,11 +341,11 @@ class Cart extends Component {
 
                     <Container id="cartcontainer" maxWidth="md">
                         <Card className={cartData.length === 1 ? "bookdiv1" : "bookdiv"} variant="outlined">
-                            <h4>My Cart ({cartData.length})</h4>
+                            <h4>My Wishlist ({cartData.length})</h4>
                             <div className={cartData.length <= 2 ? "no-scroll" : "scrollbar"}>
                                 {
                                     cartData.length > 0 ? cartData.map((books, index) => {
-                                        return <CartItems flag={this.state.disableFlag}
+                                        return <Wishlistitems flag={this.state.disableFlag}
                                                           handleSummary={this.setTotalValue}
                                                           key={books.id} price={books.totalPrice}
                                                           cartData={cartData} handleCart={this.handleCart}
@@ -352,9 +353,9 @@ class Cart extends Component {
                                                           quantity={books.quantity}
                                                           books={books} index={index}/>
                                     }) : <div className="nocartitems">
-                                        <img className="noitemsimage" src={require("../../assets/emptyCart.png")}
+                                        <img className="noitemsimage" src={require("../../assets/empty-wishlist.png")}
                                              alt="Cart Is Empty"/>
-                                        <h3 id="emptycart">Please Add Books To Cart</h3>
+                                        <h3 id="emptycart">Please Add Books To Wishlist</h3>
                                     </div>
                                 }
                             </div>
@@ -617,4 +618,4 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+export default Wishlist;

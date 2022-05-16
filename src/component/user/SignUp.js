@@ -68,7 +68,7 @@ class SignUp extends Component {
     }
 
     passwordValidation = (event, error) => {
-        let passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]*[\\@\\#\\^][a-zA-Z0-9]*$"
+        let passwordPattern = "^((?=[^@|#|&|%|$]*[@|&|#|%|$][^@|#|&|%|$]*$)*(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9#@$?]{8,})$"
         if (!event.target.value.match(passwordPattern)) {
             this.setState({
                 [event.target.id]: "Enter valid password",
@@ -124,16 +124,22 @@ class SignUp extends Component {
             mobileNumber: this.state.phoneNumber
         }
 
-        new AdminService().register(registerData).then(response => {
-            let severity = response.data.message === "Verification Mail Has Been Sent Successfully" ? "success" : "error"
-            severity === "success" ? this.snackStateMessage(response.data.message, severity) : this.snackStateMessage(response.data.message, severity);
-            this.clear()
-        }).catch(error => {
-            console.log(error)
-        })
 
+        localStorage.setItem('emailID',JSON.stringify(registerData.emailID));
+        localStorage.setItem('password',JSON.stringify(registerData.password));
+        console.log('saved in local storage');
+
+        //new AdminService().register(registerData); 
+            // let severity = response.data.message === "Verification Mail Has Been Sent Successfully" ? "success" : "error"
+            // severity === "success" ? this.snackStateMessage(response.data.message, severity) : this.snackStateMessage(response.data.message, severity);
+            // this.clear()
+
+        // }).catch(error => {
+        //     console.log(error)
+        // })
+
+    
     }
-
     clear = () => {
         if (this.state.severity === "success") {
             setTimeout(() => {
@@ -192,7 +198,7 @@ class SignUp extends Component {
                         <img src={Login} alt="Not found" className="login-img"/>
                         <div style={{marginLeft: "76px", marginTop: "3%"}}>
                             <h3 style={{fontWeight: "bold"}}>
-                                 BOOK STORE
+                                BOOK STORE
                             </h3>
                         </div>
                     </Card>
