@@ -104,6 +104,17 @@ remove = (id) => {
             url: `${Constant.apiUrl}cart/${id}`
         })*/
     }
+    removeWishlist = (id) => {
+        const wishlistItems = this.myWishlist();
+        wishlistItems.splice(wishlistItems.findIndex(item => item.id === id), 1);
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+        // return Promise(true);
+        /*return Axios({
+            method: 'delete',
+            headers: {token: localStorage.getItem('Authorization')},
+            url: `${Constant.apiUrl}cart/${id}`
+        })*/
+    }
    
 
     uploadFile = (formData) => {

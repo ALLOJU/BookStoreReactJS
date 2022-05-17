@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import Typography from "@material-ui/core/Typography";
 import {AdminService} from "../../service/AdminService";
 import '../../css/Wishlist.css';
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Divider from "@material-ui/core/Divider";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
+import {withRouter} from 'react-router';
 
-class CartItems extends Component {
+class WishlistItems extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,125 +19,91 @@ class CartItems extends Component {
             disableIncrementButton:true,
             totalPrice:this.props.books.bookPrice,
             imageURL:this.props.books.imageURL,
-           
+            title1: "AddToBag",
+            title2: "Wishlist",
+            color: "rgb(165,42,42)",
+            badgeSize: '',
+            addedInCart:false
         }
     }
-
-    
-    checkAndRemove = (count, id,type) => {
-        if (count === 0) {
-            this.remove(id)
+    myCartData = () => {
+        const cartDTO = {
+            "id": this.props.books.id,
+            "quantity": 1,
+            "totalPrice":this.props.books.bookPrice,
+            "bookName": this.props.books.bookName,
+            "authorName": this.props.books.authorName,
+            "imageURL":this.props.books.imageURL,
+            "bookPrice": this.props.books.bookPrice
         }
-        this.disableDecrementButton(type)
-        this.disableIncrementButton(type)
+        return cartDTO
+    }
+    changeText = () => {
+        if (this.state.title1 === "GO TO CART") {
+            //this.props.history.push("/cart");
+            this.removeWishlist(this.props.books.id);
+        }
+        if (this.state.title1 !== "GO TO CART") {
+            new AdminService().addToCart(this.myCartData());
+            this.setState({
+                title1: "GO TO CART", color: "rgb(51,113,181)"
+            })
+           this.props.cartReference.current.handleBadgeCount(this.state.badgeSize, "addButton");
+
+        }
+       
+
     }
 
-    // remove = (id) => {
-    //     console.log('remove')
-    //     new AdminService().remove(id).then(response => {
-    //        // this.props.handleCart()
-    //        console.log(id);
-    //     }).catch((error) => {
-    //         // console.log(error)
-    //     })
-    // }
-
-   const addToCart = () => {
-        console.log('added to bag')
-        // new AdminService().addToCart(this.myCartData());
-        
-    }
     componentDidMount() {
-        this.handleCart()
-        // this.getUser()
-        //this.buttonVisibility()
+        // let user = localStorage.getItem('Authorization')
+        // if(user !== null) {
+            this.handleButtonState();
+
+        // }
     }
 
-    handleCart = () => {
-       // new AdminService().myCart().then(response => {
-            this.setState({
-                checkoutData: new AdminService().myWishlist()
-            })
-        /*}).catch((error) => {
-            this.setState({
-                checkoutData: []
-            })
-        })*/
+    handleButtonState = () => {
+        new AdminService().myCart();
+        // //new AdminService().myCart().then(response => {
+        //     this.handleButton(new AdminService().myCart());
+        // //}).catch((error) => {
+        //   //  console.log(error)
+        // // })
     }
-    remove = (id) => {
-        new AdminService().remove(id); //.then(response => {
+  
+
+    // handleButton = (data) => {
+    //     this.setState({
+    //         badgeSize: data.length
+    //     })
+    //     data.filter(data => {
+          
+    //         if (data.id === this.props.books.id) {
+    //             this.setState({
+    //                 title1: "GO TO CART", color: "rgb(51,113,181)"
+    //             })
+    //         }
+    //         return null
+    //     })
+    //    this.props.cartReference.current.handleBadgeCount(data.length, "updateButton")
+    // }
+    
+
+   
+    removeWishlist = (id) => {
+        new AdminService().removeWishlist(id); //.then(response => {
             this.props.handleCart()
         //}).catch((error) => {
             // console.log(error)
        // })
     }
-    onclick(type, id, bookid) {
-        if (this.state.count >= 0) {
-            this.setState({
-                count: type === 'add' ? this.state.count + 1 : this.state.count - 1,
-                changedCount: id
-            }, () => this.checkAndRemove(this.state.count, bookid,type));
-        }
-        type === 'add' ? this.updateCount(bookid, this.state.count + 1) : this.updateCount(id, this.state.count - 1)
-
-    }
-
-    updateCount = (id, count) => {
-        const cartDTO = {
-            "id":this.props.cartID,
-            "quantity": count,
-            "totalPrice":this.props.books.bookPrice*count
-        }
-        new AdminService().updateCart(cartDTO).then(response => {
-            this.props.handleCart()
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
-
-    disableDecrementButton = (type) => {
-
-        if (type === 'sub' && this.state.disableDecrementButton) {
-            this.setState({
-                disableDecrementButton: false
-            })
-        }
-        if (this.state.count === 5 || this.props.flag) {
-            this.setState({
-                disableDecrementButton: true
-            })
-        }
-
-    }
-
-    disableIncrementButton=(type)=>{
-
-        if ((type === 'add' && this.state.disableIncrementButton) || this.props.flag) {
-            this.setState({
-                disableIncrementButton: true
-            })
-        }
-        if(this.state.count > 1){
-            this.setState({
-                disableIncrementButton:false
-            })
-        }
-
-        if(this.state.count === 1 || this.props.flag){
-            this.setState({
-                disableIncrementButton:true
-            })
-        }
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.disableDecrementButton("loaded")
-        this.disableIncrementButton("loaded")
-    }
+    
+    
+   
 
 
     render() {
-        let index = this.props.index;
         let book = this.props.books;
         return (
             <div className="mycart">
@@ -149,25 +115,18 @@ class CartItems extends Component {
                     <Typography variant="body2" color="textSecondary" id="authorName">{this.props.books.authorName}</Typography>
                     <Typography component="h2" id="cost">Rs.
                         {this.props.books.bookPrice}</Typography>
-                    {/* <div className="plusminusdiv">
-                        <IconButton id="minus" disabled={this.state.disableIncrementButton}
-                                    onClick={() => this.onclick('sub', this.props.books.bookID, this.props.books.id,this.props.books.bookPrice)}>
-                            <RemoveCircleOutlineIcon id={this.state.disableIncrementButton===true ? "plusminubtn1":"plusminubtn"}/>
-                        </IconButton>
-
-                        <input  id="text" value={this.state.count}></input>
-
-                        <IconButton id="plus" disabled={this.state.disableDecrementButton}
-                                    onClick={() => this.onclick('add', this.props.books.bookID, this.props.books.id,this.props.books.bookPrice)}>
-                            <AddCircleOutlineIcon id={this.state.disableDecrementButton===true ? "plusminubtn1":"plusminubtn"}/>
-                        </IconButton>
-
-                        <button className="remove" disabled={this.props.flag} onClick={() => this.remove(this.props.cartID)}>Remove
-                        </button>
-                    </div> */}
                     <div className="plusminusdiv">
-                    <button className="button" onclick={addToCart}><span>Add to Bag </span></button>
-                    <button className="button" disabled={this.props.flag} onClick={() => this.remove(this.props.cartID)}>Remove
+                       
+                        <Button onClick={this.changeText}  value={this.state.title1} style={book.quantity === 0
+                        ? {backgroundColor: "#d3d3d3", pointerEvents: "none", marginBottom: "20%", width: "60%"}
+                        : {backgroundColor: this.state.color, width: "60%", marginBottom: "20%", color: "#fff"}}>
+                        {this.state.title1}
+                    </Button>
+                        <button className="remove" disabled={this.props.flag} onClick={() => this.removeWishlist(this.props.cartID)}
+                        style={book.quantity === 0
+                            ? {backgroundColor: "#d3d3d3", pointerEvents: "none", marginBottom: "20%",marginLeft:"30%", width: "60%"}
+                            : {backgroundColor: this.state.color, width: "60%", marginBottom: "20%", marginLeft:"20%",color: "#fff",marginLeft:"20%"}}>
+                            Remove
                         </button>
                     </div>
                 </div><br/>
@@ -180,4 +139,4 @@ class CartItems extends Component {
     }
 }
 
-export default CartItems;
+export default WishlistItems;

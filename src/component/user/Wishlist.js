@@ -336,9 +336,9 @@ class Wishlist extends Component {
                     <CbHeader/>
                     <ul className="breadcrumb">
                         <li><a href="/">Home</a></li>
-                        <li>My Cart</li>
+                        <li>My Wishlist</li>
                     </ul>
-
+                    
                     <Container id="cartcontainer" maxWidth="md">
                         <Card className={cartData.length === 1 ? "bookdiv1" : "bookdiv"} variant="outlined">
                             <h4>My Wishlist ({cartData.length})</h4>
@@ -359,259 +359,19 @@ class Wishlist extends Component {
                                     </div>
                                 }
                             </div>
-                            <Button onClick={this.handleCustomer}
+                            {/* <Button onClick={this.handleCustomer}
                                     style={cartData.length === 0 ? {visibility: "hidden"} : {visibility: this.state.btn1}}
                                     id="orderBtn">
                                 Continue
-                            </Button>
+                            </Button> */}
 
                         </Card>
-                        <ExpansionPanel className="customerdetails" variant="outlined"
-                                        expanded={this.state.customerPanel}>
-                            <ExpansionPanelSummary
-                                aria-controls="panel1a-content"
-                                id="summary"
-                            >
-                                <Typography id="customer-details">Customer Details</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Button id="editBtn" onClick={this.handleFocus}
-                                        style={{visibility: this.state.a}}>Edit</Button>
-                                <div className="customerdiv">
-                                    <div className="textbox secondtext">
-                                        <ThemeProvider theme={theme}>
-                                            <TextFields
-                                               InputLabelProps={{shrink: true}}
-                                                 value={this.state.fullName}
-                                                 required={true}
-                                                 label="Name"
-                                                 id="name"
-                                                 error={this.state.customernamerror}
-                                                 name="customername"
-                                                 onChange={this.changeState}
-                                                 onBlur={(e) => this.customernameValidation(e, "customernameError")}
-                                                 helperText={this.state.customername}
-                                                 variant="outlined"
-                                                 className="textfields" disabled={this.state.text}
-                                            />
-                                            <TextFields
-                                                 InputLabelProps={{shrink: true}}
-                                                 value={this.state.phonenumber}
-                                                 required={true}
-                                                 label="Phonenumber"
-                                                 id="phoneNumber"
-                                                 error={this.state.phonenumberError}
-                                                 name="phonenumber"
-                                                 onChange={this.changeState}
-                                                 onBlur={(e) => this.phonenumberValidation(e, "phonenumberError")}
-                                                 helperText={this.state.phonenumber}
-                                                 variant="outlined"
-                                                 className="textfields" disabled={this.state.text}
-                                            />
-                                        </ThemeProvider>
-                                    </div>
-
-                                    <div className="textbox secondtext">
-                                        <TextFields
-                                            InputLabelProps={{shrink: true}}
-                                            value={this.state.pincode}
-                                            required={true}
-                                            label="Pincode"
-                                            id="pinCode"
-                                            error={this.state.pincodeError}
-                                            name="pincode"
-                                            onChange={this.changeState}
-                                            onBlur={(e) => this.pincodeValidation(e, "pincodeError")}
-                                            helperText={this.state.pinCode}
-                                            variant="outlined"
-                                            className="textfields" disabled={this.state.text}
-                                        />
-                                        <TextFields
-                                            InputLabelProps={{shrink: true}}
-                                            value={this.state.locality}
-                                            required={true}
-                                            label="Locality"
-                                            id="locaLity"
-                                            className="locality-text"
-                                            error={this.state.localityError}
-                                            name="locality"
-                                            onChange={this.changeState}
-                                            onBlur={(e) => this.localityValidation(e, "localityError")}
-                                            helperText={this.state.locaLity}
-                                            variant="outlined"
-                                            className="textfields" disabled={this.state.text}
-                                        />
-                                    </div>
-                                    <div className="address">
-                                        <TextFields
-                                            InputLabelProps={{shrink: true}}
-                                            value={this.state.address}
-                                            required={true}
-                                            style={{marginTop: "2%"}}
-                                            multiline rows={2} fullWidth inputProps={{maxLength: 150}}
-                                            label="Address"
-                                            id="addRess"
-                                            error={this.state.addressError}
-                                            name="address"
-                                            onChange={this.changeState}
-                                            onBlur={(e) => this.addressValidation(e, "addressError")}
-                                            helperText={this.state.addRess}
-                                            placeholder={"Max 150 words"}
-                                            variant="outlined"
-                                            className="textfields1" disabled={this.state.text}
-                                        />
-                                    </div>
-                                    <div className="secondtext">
-                                        <TextFields
-                                            InputLabelProps={{shrink: true}}
-                                            value={this.state.city}
-                                            required={true}
-                                            label="City/Town"
-                                            id="ciTy"
-                                            error={this.state.cityError}
-                                            name="city"
-                                            onChange={this.changeState}
-                                            onBlur={(e) => this.cityValidation(e, "cityError")}
-                                            helperText={this.state.ciTy}
-                                            variant="outlined"
-                                            className="textfields" disabled={this.state.text}
-                                        />
-                                        <TextFields
-                                            InputLabelProps={{shrink: true}}
-                                            value={this.state.landmark}
-                                            label="Landmark"
-                                            id="landMark"
-                                            name="landmark"
-                                            variant="outlined"
-                                            onChange={this.changeState}
-                                            className="textfields" disabled={this.state.text}
-                                        />
-                                    </div>
-                                    <div className="radiodiv">
-                                        <Typography id="type-name">Type</Typography>
-                                        <RadioGroup onChange={this.changeState} row aria-label="Type"
-                                                    name="addressType" defaultValue="HOME">
-                                            <FormControlLabel
-                                                value="HOME"
-                                                control={<Radio style={{fontSize: "80%", color: "rgb(160,48,55)"}}/>}
-                                                label="Home"
-                                                id="type-label"
-                                                labelPlacement="end" disabled={this.state.text}
-                                            />
-                                            <FormControlLabel
-                                                value="WORK"
-                                                control={<Radio style={{fontSize: "80%", color: "rgb(160,48,55)"}}/>}
-                                                label="Work"
-                                                labelPlacement="end" disabled={this.state.text}
-                                            />
-                                            <FormControlLabel
-                                                value="OTHER"
-                                                control={<Radio style={{fontSize: "80%", color: "rgb(160,48,55)"}}/>}
-                                                label="Other"
-                                                labelPlacement="end" disabled={this.state.text}
-                                            />
-                                            </RadioGroup>
-                                    </div>
-
-                                    <Button onClick={this.handleSummary} id="customerBtn"
-                                            disabled={this.state.btnDisable}
-                                            style={{backgroundColor: this.state.color, visibility: this.state.btn2}}>
-                                        Continue
-                                    </Button>
-
-                                </div>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
-
-                        <ExpansionPanel className="oredresummary" variant="outlined" expanded={this.state.summaryPanel}>
-                            <ExpansionPanelSummary aria-controls="panel1a-content" id="details">
-                                <Typography id="customer-details">Order Summary</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-
-                                <div className="detailsblock">
-                                    <div
-                                        className={cartData.length === 1 ? "details-block" : cartData.length === 2 ? "no-scroll" : "scrollbar"}>
-                                        {
-                                            cartData.map((books, index) =>
-                                                <div key={index}>
-                                                    <div className="details-content">
-                                                        <div>
-                                                            {/* <img src={require('../../assets/Bob.jpg')} alt={"Not found"}
-                                                                 className="img"/> */}
-                                                                  <img src={books.imageURL} alt={"Not found"}
-                                                                 className="img"/> 
-
-                                                        </div>
-                                                        <div className="oredr-summary-books-div">
-                                                            <Typography id="summary-bookname"
-                                                                        component="h2">{books.bookName}</Typography>
-                                                            <Typography variant="body2" color="textSecondary"
-                                                                        id="summary-authorname">{books.authorName}</Typography>
-                                                            <Typography component="h2"
-                                                                        id="summary-cost">Rs. {books.totalPrice}</Typography>
-                                                        </div>
-                                                    </div>
-                                                    <br/>
-                                                    <Divider/><br/>
-                                                </div>
-                                            )}
-
-                                    </div>
-
-
-                                    {/* <div className="coupon-div">
-                                        <b>Coupons</b>
-                                        <div className="coupon-div1">
-                                            <LocalOfferOutlinedIcon id="offer-icon"/>
-                                            {this.state.couponStatus === "applied" ?
-                                                <div className="coupon-div1-sub">
-                                                    <p className="coupon-sub-title">1 Coupon Applied</p>
-                                                    <Button id="coupon-apply-btn" onClick={this.getCoupon}>Edit</Button>
-                                                </div>
-                                                :
-                                                <div className="coupon-div1-sub">
-                                                    <p className="coupon-sub-title">Apply Coupons</p>
-                                                    <Button id="coupon-apply-btn"
-                                                            onClick={this.getCoupon}>Apply</Button>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div> */}
-                                    <Divider/>
-                                    <div>
-                                        <p><b>Price details</b></p>
-                                        <div className="price-sub-div">
-                                            <p> Sub Total Price: </p>
-                                            <p className="sub-price">Rs. {this.state.totalPrice}</p>
-                                        </div>
-                                        {/* <div className="price-sub-div">
-                                            <p> Discount Price: </p>
-                                            <p className="discount-price">Rs. {this.state.couponPrice}</p>
-                                        </div> */}
-                                        <hr className="horizontal-line"/>
-                                        <div className="price-main-div">
-                                            <b>Total price: </b>
-                                            <b className="total-price">Rs.{this.state.totalValue}</b>
-                                        </div>
-
-                                    </div>
-
-                                    <Button onClick={this.handleCheckOut} id="summryBtn">
-                                        Place Order
-                                    </Button>
-                                </div>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                       
+                          
+                      
+                       
                     </Container>
-                    <Dialog className="coupon-dialog-box" aria-labelledby="customized-dialog-title"
-                            open={this.state.visibilityOfDialogBox} onClose={this.handleClose}>
-                        <DialogContent id="dialoguecontent" id2="customized-dialog-title">
-                            <Coupon coupons={this.state.coupons} totalPrice={this.state.totalPrice}
-                                    handleTotalPrice={this.handleTotalPrice} index={this.state.index}
-                                    handleDialogVisibility={this.handleCancel}/>
-                        </DialogContent>
-                    </Dialog>
+                    
                     <CbFooter/>
                 </div>
             );

@@ -75,7 +75,7 @@ h4 {
     font-size: 15px;
     padding-top: 2.2%;
     font-weight: bold;
-    margin-left: 14%;
+    margin-left: 20%;
     margin-top: -17%;
     display: flex;
     justify-content: flex-start;
@@ -84,7 +84,7 @@ h4 {
 
 #authorName {
     font-size: 11.5px;
-    margin-left: 14%;
+    margin-left: 20%;
     margin-top: 0.4%;
 }
 
@@ -96,7 +96,7 @@ h4 {
 #cost {
     font-size: 13px;
     font-weight: bold;
-    margin-left: 14%;
+    margin-left: 20%;
     margin-top: 0.4%;
 }
 
@@ -111,6 +111,9 @@ h4 {
     margin-right: 58%;
     margin-left: 12%;
     display: flex;
+}
+.addtobagbtn {
+    margin-left: 20%;
 }
 
 #plusminubtn {
@@ -163,7 +166,7 @@ h4 {
     color: #fff;
     margin-top: 2%;
     display: flex;
-    margin-left: 80%;
+    margin-left: 50%;
 }
 
 /*Customer Details Css*/
@@ -1331,7 +1334,7 @@ ul.breadcrumb li a {
     
 
 }
-.button {
+/* .button {
     display: inline-block;
     border-radius: 2px;
     background-color:rgb(165,42,42);
@@ -1344,4 +1347,4 @@ ul.breadcrumb li a {
     transition: all 0.5s;
     cursor: pointer;
     margin-left: 10px;
-  }
+  } */
